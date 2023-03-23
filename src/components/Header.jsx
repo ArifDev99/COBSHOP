@@ -11,6 +11,7 @@ import { getItemCount } from '../utils';
 import {styled,alpha} from '@mui/material/styles'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { Link, useNavigate  } from 'react-router-dom';
 
 const Search =styled("section")(({theme})=>({
     position:"relative",
@@ -33,8 +34,8 @@ function SearchBar(){
         id="combo-box-demo"
         options={Array.from(products,(prod)=>({id:prod.id,label:prod.title}))}
         sx={{ width: "100%" ,[theme.breakpoints.up('md')]: {
-           display:"flex",
-          },}}
+            display:"flex",
+        },}}
         renderInput={(params) => <TextField {...params} />}
         />
         <IconButton size="large" aria-label="Show cart Items Count" color="inherit"><SearchOutlinedIcon sx={{}}/></IconButton>
@@ -44,11 +45,13 @@ function SearchBar(){
 export default function Header() {
     const cartItmes=useSelector(state=>state.cart?.value)
     const count=getItemCount(cartItmes)
-  return (
+    const navigate=useNavigate();
+    return (
     <AppBar position="sticky">
         <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>
             <Box>
-            <Typography variant='h6' color="inherit" sx={{flexGrow:1}}>COBSHOP</Typography>
+            <Link to="/" style={{textDecoration:"none",color:"white"}}>
+            <Typography variant='h6' color="inherit" sx={{flexGrow:1}}>COBSHOP</Typography></Link>
             </Box>
             <Box sx={{display:"flex",alignItems:"center" , width:"500px"}}>
                 <SearchBar sx={{display:{md:"flex"}}}/>
@@ -57,7 +60,7 @@ export default function Header() {
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
-                <Button color="inherit">LogIn</Button>
+                <Button color="inherit" onClick={()=>{navigate("/login")}}>LogIn</Button>
             </Box>
         </Toolbar>
     </AppBar>
