@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cart-slice';
 import { getAllProducts } from '../features/product-slice';
 
+
+
+
 export default function Home() {
     const theme=useTheme();
     const state = useSelector((state)=>state.products);
